@@ -1,13 +1,18 @@
 package com.example.mickey.budgeteer
 
 class Budget{
+    var id:Int? = null;
     var title: String? = null;
-    var subText: String? = null;
-    var image: String? = null;
+    var amount: Int? = null;
+    var type: String? = null;
 
-    constructor(title: String?, subText:String?, image:String?){
+    constructor(title: String?, amount:Int?, type:String?){
         this.title = title;
-        this.subText = subText;
-        this.image = image;
+        this.amount = amount;
+        this.type = type;
+    }
+
+    constructor(){
+
     }
 }

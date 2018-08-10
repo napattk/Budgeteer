@@ -9,8 +9,8 @@ import android.widget.Toast
 val DB_NAME = "Budget";
 val TABLE_NAME = "Expenses";
 val COL_TITLE = "title";
-val COL_SUBTEXT = "subtext";
-val COL_IMAGE = "image";
+val COL_TYPE = "type";
+val COL_AMOUNT = "amount";
 val COL_ID = "id";
 
 
@@ -18,10 +18,10 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
 
     override fun onCreate(db: SQLiteDatabase?) {//When creating DB
         val createTable = "CREATE TABLE " + TABLE_NAME + "("+
-                COL_ID + "INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 COL_TITLE + " VARCHAR(256), " +
-                COL_SUBTEXT + " VARCHAR(256), " +
-                COL_IMAGE + " VARCHAR(256) "
+                COL_TYPE + " VARCHAR(256), " +
+                COL_AMOUNT + " INTEGER)"
 
         db?.execSQL(createTable)
 
@@ -30,15 +30,14 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {//If DB already created
 
 
-
     }
 
-    fun insertData(title: String?, subText:String?, image:String?){
+    fun insertData(title: String?, type:String?, amount:Int?){
         val db = this.writableDatabase
         var cv = ContentValues()
         cv.put(COL_TITLE, title)
-        cv.put(COL_SUBTEXT, subText)
-        cv.put(COL_IMAGE, image)
+        cv.put(COL_TYPE, type)
+        cv.put(COL_AMOUNT, amount)
 
         var result = db.insert(TABLE_NAME,null,cv);
         if(result == -1.toLong()){
@@ -50,6 +49,28 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         }
     }
 
+    fun readData() : MutableList<Budget>{
+        var list : MutableList<Budget> = ArrayList()
+
+        val db = this.readableDatabase
+        val query = "Select * from " + TABLE_NAME
+        val result = db.rawQuery(query, null)
+
+        if(result.moveToFirst()){
+            do{
+               var budget = Budget()
+                budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
+                budget.title = result.getString(result.getColumnIndex(COL_TITLE))
+                budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()
+                budget.type = result.getString(result.getColumnIndex(COL_TYPE))
+                list.add(budget)
+            }while(result.moveToNext())
+        }
+
+        result.close()
+        db.close()
+        return list
+    }
 
 
 
