@@ -47,6 +47,8 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         else {
             Toast.makeText(context, "Item added successfully.",Toast.LENGTH_SHORT).show();
         }
+
+        db.close();
     }
 
     fun readData() : MutableList<Budget>{
