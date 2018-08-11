@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/summary"
-        android:icon="@drawable/s"
+        android:icon="@drawable/summary"
         android:title="View Summary"></item>
 
     <item
