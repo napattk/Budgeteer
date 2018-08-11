@@ -24,11 +24,9 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
                 COL_AMOUNT + " INTEGER)"
 
         db?.execSQL(createTable)
-
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {//If DB already created
-
 
     }
 
@@ -51,7 +49,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         db.close();
     }
 
-    fun readData() : MutableList<Budget>{
+    fun readAllData() : MutableList<Budget>{
         var list : MutableList<Budget> = ArrayList()
 
         val db = this.readableDatabase
@@ -74,6 +72,37 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         return list
     }
 
+    fun readData(id :Int) : Budget{
 
+        val db = this.readableDatabase
+        val query = "Select *  FROM "+ TABLE_NAME + " WHERE id = " + id
+        val result = db.rawQuery(query, null)
+        result.moveToFirst()
+
+        var budget = Budget()
+        budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
+        budget.title = result.getString(result.getColumnIndex(COL_TITLE))
+        budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()
+        budget.type = result.getString(result.getColumnIndex(COL_TYPE))
+
+        return budget;
+    }
+
+    fun updateData(title: String?, type:String?, amount:Int?, id: Int?){
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put(COL_TITLE, title)
+        cv.put(COL_TYPE, type)
+        cv.put(COL_AMOUNT, amount)
+
+        db.update(TABLE_NAME,cv, COL_ID+"="+ id, null);
+
+        db.close();
+    }
+
+    fun deleteData(id: Int?){
+        val db = this.writableDatabase
+        db.delete(TABLE_NAME, COL_ID+"=" + id, null) > 0;
+    }
 
 }

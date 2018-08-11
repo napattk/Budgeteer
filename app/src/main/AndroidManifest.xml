@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".AddNewItemActivity"
             android:theme="@style/Theme.AppCompat"
-            android:label="Add new item."></activity>
+            android:label="Add new item"></activity>
     </application>
 
 </manifest>

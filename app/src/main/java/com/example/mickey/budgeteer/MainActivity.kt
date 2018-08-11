@@ -5,8 +5,6 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.widget.ListView
-import com.example.mickey.budgeteer.R.id.budgetList
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +15,7 @@ class MainActivity : AppCompatActivity() {
 
         //Calculate total change
         var dbHandler = DBHandler(this)
-        var budgetItems = dbHandler.readData()
+        var budgetItems = dbHandler.readAllData()
         var totalChange = 0;
 
         budgetItems.iterator().forEach {
@@ -27,10 +25,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         if(totalChange < 0){
             changeAmountText.setTextColor(Color.parseColor("#8C2A2A"))
-            changeAmountText.setText("-"+totalChange)
+            changeAmountText.setText(totalChange)
             changeImage.setImageResource(R.drawable.decline)
         }else{
             changeAmountText.setTextColor(Color.parseColor("#587C12"))

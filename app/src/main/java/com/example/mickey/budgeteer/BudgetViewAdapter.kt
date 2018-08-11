@@ -1,6 +1,7 @@
 package com.example.mickey.budgeteer
 
 import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,11 +10,13 @@ import kotlinx.android.synthetic.main.budget_item_layout.view.*
 
 class BudgetViewAdapter(context: Context): RecyclerView.Adapter<CustomViewHolder>(){
 
+    var context: Context? = null;
     var budgetItems: MutableList<Budget>? = null;
 
     init {
+        this.context = context;
         var dbHandler = DBHandler(context)
-        budgetItems = dbHandler.readData()
+        budgetItems = dbHandler.readAllData()
 
     }
 
@@ -34,16 +37,26 @@ class BudgetViewAdapter(context: Context): RecyclerView.Adapter<CustomViewHolder
 
         var type = budgetItems!![position].type
         println(type)
-        when(type){
+        when (type) {
             "Income" -> holder?.itemView.budgetItemImage.setImageResource(R.drawable.income)
             "Expense" -> holder?.itemView.budgetItemImage.setImageResource(R.drawable.expense)
         }
+
+        holder.parentLayout.setOnClickListener() {user->
+            val intent = Intent(context, AddNewItemActivity::class.java);
+            intent.putExtra("Position", position);
+            context!!.startActivity(intent);
+         }
+
+
 
 
     }
 }
 
 class CustomViewHolder(v: View): RecyclerView.ViewHolder(v){
+    var parentLayout = v.budgetItem;
+
 
 
 }
