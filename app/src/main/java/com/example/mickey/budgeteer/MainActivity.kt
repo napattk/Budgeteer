@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         if(totalChange < 0){
             changeAmountText.setTextColor(Color.parseColor("#8C2A2A"))
             changeAmountText.setText(totalChange)
-            changeImage.setImageResource(R.drawable.decline)
+            changeImage.setImageResource(R.drawable.decrease)
         }else{
             changeAmountText.setTextColor(Color.parseColor("#587C12"))
             changeAmountText.setText("+"+totalChange)
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Set-up items list
-        budgetList.layoutManager = LinearLayoutManager(this);
+        budgetList.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?;
         budgetList.adapter = BudgetViewAdapter(this);
 
         newItemButton.setOnClickListener(){ user->
