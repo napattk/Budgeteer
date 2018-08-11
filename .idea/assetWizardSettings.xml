@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="400" />
+                                                <entry key="scalingPercent" value="121" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -34,7 +34,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="scalingPercent" value="60" />
+                                                <entry key="scalingPercent" value="49" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -44,8 +44,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundImage" value="C:\Users\Mickey\Desktop\solid-blue-background-1-1024x576.jpg" />
-                                      <entry key="foregroundImage" value="C:\Users\Mickey\Desktop\icons8-us-dollar-512.png" />
+                                      <entry key="backgroundImage" value="C:\Users\Mickey\Documents\Dev\Budgeteer Git\app\src\main\res\drawable-v24\icon2.png" />
+                                      <entry key="foregroundImage" value="C:\Users\Mickey\Documents\Dev\Budgeteer Git\app\src\main\res\drawable-v24\icon.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -59,6 +59,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>

@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         if(totalChange < 0){
             changeAmountText.setTextColor(Color.parseColor("#8C2A2A"))
-            changeAmountText.setText(totalChange)
+            changeAmountText.setText(""+totalChange)
             changeImage.setImageResource(R.drawable.decrease)
         }else{
             changeAmountText.setTextColor(Color.parseColor("#587C12"))
