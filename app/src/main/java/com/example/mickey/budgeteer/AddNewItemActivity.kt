@@ -78,11 +78,8 @@ class AddNewItemActivity : AppCompatActivity() {
 
                 val formatter = SimpleDateFormat("yyyy/MM/dd")
                 val dateString = "" + year + "/"+ (month+1)+ "/" + day
-
-                println(dateString)
                 val date = formatter.parse(dateString)
                 val msDate = date.time;
-
 
                 if (title.equals("Editing item")){
                     dbHandler.updateData(titleEdit.text.toString(), categorySpinner.selectedItem.toString(), amountEdit.text.toString().toInt(), id, msDate)

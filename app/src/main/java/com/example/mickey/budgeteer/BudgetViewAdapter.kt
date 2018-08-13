@@ -11,21 +11,24 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class BudgetViewAdapter(context: Context): RecyclerView.Adapter<CustomViewHolder>(){
+class BudgetViewAdapter(context: Context, budgetItems: MutableList<Budget>): RecyclerView.Adapter<CustomViewHolder>(){
 
-    var context: Context? = null;
     var budgetItems: MutableList<Budget>? = null;
     var dateFormat = SimpleDateFormat("dd MMM yyyy")
+    var context: Context? = null
 
     init {
-        this.context = context;
-        var dbHandler = DBHandler(context)
-        budgetItems = dbHandler.readAllData()
-
+        this.budgetItems = budgetItems
+        this.context = context
     }
 
     override fun getItemCount(): Int {//Number of items in list
-        return budgetItems!!.size
+        if(budgetItems == null){
+            return 0
+        }
+        else{
+            return budgetItems!!.size
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
@@ -37,17 +40,16 @@ class BudgetViewAdapter(context: Context): RecyclerView.Adapter<CustomViewHolder
     override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
         val date = budgetItems!![position].time
 
-        holder?.itemView.budgetItemTitle?.text = budgetItems!![position].title
+        holder.itemView.budgetItemTitle?.text = budgetItems!![position].title
         holder.itemView.budgetItemAmount.text = budgetItems!![position].amount.toString()
         holder.itemView.budgetItemTime.text = dateFormat.format(date)
-
 
         var id = budgetItems!![position].id
         var type = budgetItems!![position].type
         println(type)
         when (type) {
-            "Income" -> holder?.itemView.budgetItemImage.setImageResource(R.drawable.income)
-            "Expense" -> holder?.itemView.budgetItemImage.setImageResource(R.drawable.expense)
+            "Income" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.income)
+            "Expense" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.expense)
         }
 
         holder.parentLayout.setOnClickListener() {user->

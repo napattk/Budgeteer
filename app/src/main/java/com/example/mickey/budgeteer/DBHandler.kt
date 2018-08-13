@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import java.text.SimpleDateFormat
 import java.util.*
 
 val DB_NAME = "Budget";
@@ -79,7 +80,6 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
     }
 
     fun readDataFromID(id :Int) : Budget{
-
         val db = this.readableDatabase
         val query = "Select *  FROM "+ TABLE_NAME + " WHERE id = " + id
         val result = db.rawQuery(query, null)
@@ -111,6 +111,47 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
     fun deleteData(id: Int?){
         val db = this.writableDatabase
         db.delete(TABLE_NAME, COL_ID+"=" + id, null) > 0;
+    }
+
+    fun readDataFromMonth(year: String?, month: String?) : MutableList<Budget>{
+        var list : MutableList<Budget> = ArrayList()
+
+        //Calculate range
+        var calendar = Calendar.getInstance()
+        var months = arrayOf("January", "February","March","April","May","June","July","August","September","October","November","December")
+
+        val formatter = SimpleDateFormat("yyyy/MM/dd")
+        calendar.set(year!!.toInt(),months.indexOf(month),1)
+        val maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
+        val startDateString = "" + year + "/"+ (months.indexOf(month)+1)+ "/" + 1
+        val endDateString = "" + year + "/"+ (months.indexOf(month)+1)+ "/" + maxDays
+        val startDate = formatter.parse(startDateString)
+        val endDate = formatter.parse(endDateString)
+        val msDateStart = startDate.time;
+        val msDateEnd = endDate.time;
+
+        val db = this.readableDatabase
+        val query = "Select * from " + TABLE_NAME +
+                " WHERE "+ COL_TIME + " BETWEEN " + msDateStart + " AND " + msDateEnd +
+                " ORDER BY " + COL_TIME + " DESC "
+        val result = db.rawQuery(query, null)
+
+        if(result.moveToFirst()){
+            do{
+                var budget = Budget()
+                budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
+                budget.title = result.getString(result.getColumnIndex(COL_TITLE))
+                budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()
+                budget.type = result.getString(result.getColumnIndex(COL_TYPE))
+                budget.time = result.getString(result.getColumnIndex(COL_TIME)).toLong()
+                list.add(budget)
+            }while(result.moveToNext())
+        }
+
+        result.close()
+        db.close()
+        return list
+
     }
 
 }
