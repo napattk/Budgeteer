@@ -46,7 +46,7 @@ class BudgetViewAdapter(context: Context, budgetItems: MutableList<Budget>): Rec
 
         val id = budgetItems!![position].id
         val type = budgetItems!![position].type
-        println(type)
+
         when (type) {
             "Income" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.income)
             "Expense" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.expense)

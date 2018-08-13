@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
@@ -55,8 +54,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         //Set-up budget items list
-        budgetList.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?;
-        budgetList.adapter = BudgetViewAdapter(this, budgetItems);
+        budgetListRecyclerView.layoutManager = LinearLayoutManager(this)
+        budgetListRecyclerView.adapter = BudgetViewAdapter(this, budgetItems)
 
         newItemButton.setOnClickListener(){ user->
             val intent = Intent(this, AddNewItemActivity::class.java);
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity() {
         // Handle presses on the action bar menu items
         when (item.itemId) {
             R.id.monthSelect -> {
-                val intent = Intent(this, monthPickerActivity::class.java)
+                val intent = Intent(this, MonthPickerActivity::class.java)
                 startActivity(intent)
                 return true
             }

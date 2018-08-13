@@ -58,7 +58,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/budgetList"
+        android:id="@+id/budgetListRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"

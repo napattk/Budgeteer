@@ -15,6 +15,11 @@ import java.text.SimpleDateFormat
 
 class AddNewItemActivity : AppCompatActivity() {
 
+    override fun onSaveInstanceState(outState: Bundle?) {
+        outState!!.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        super.onSaveInstanceState(outState);
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item)
@@ -97,7 +102,20 @@ class AddNewItemActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        tempButton.setOnClickListener{user->
 
+            val ft = supportFragmentManager.beginTransaction()
+            val prev = supportFragmentManager.findFragmentByTag("dialog")
+            if (prev != null) {
+                ft.remove(prev)
+            }
+            ft.addToBackStack(null)
+
+            val dialogFragment = CategoryPickerDialog()
+            dialogFragment.show(ft, "dialog")
+
+        }
 
     }
+
 }

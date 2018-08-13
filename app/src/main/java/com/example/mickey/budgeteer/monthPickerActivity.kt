@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_month_picker.*
 
 
-class monthPickerActivity : Activity() {
+class MonthPickerActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
