@@ -37,13 +37,13 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
 
     fun insertData(title: String?, type:String?, amount:Int?, time:Long?){
         val db = this.writableDatabase
-        var cv = ContentValues()
+        val cv = ContentValues()
         cv.put(COL_TITLE, title)
         cv.put(COL_TYPE, type)
         cv.put(COL_AMOUNT, amount)
         cv.put(COL_TIME, time)
 
-        var result = db.insert(TABLE_NAME,null,cv);
+        val result = db.insert(TABLE_NAME,null,cv);
         if(result == -1.toLong()){
             println("Database Error");
             Toast.makeText(context, "Item couldn't be added.",Toast.LENGTH_SHORT).show();
@@ -56,7 +56,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
     }
 
     fun readAllData() : MutableList<Budget>{
-        var list : MutableList<Budget> = ArrayList()
+        val list : MutableList<Budget> = ArrayList()
 
         val db = this.readableDatabase
         val query = "Select * from " + TABLE_NAME + " ORDER BY " + COL_TIME + " DESC "
@@ -64,7 +64,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
 
         if(result.moveToFirst()){
             do{
-               var budget = Budget()
+                val budget = Budget()
                 budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
                 budget.title = result.getString(result.getColumnIndex(COL_TITLE))
                 budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()
@@ -85,7 +85,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         val result = db.rawQuery(query, null)
         result.moveToFirst()
 
-        var budget = Budget()
+        val budget = Budget()
         budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
         budget.title = result.getString(result.getColumnIndex(COL_TITLE))
         budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()
@@ -97,7 +97,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
 
     fun updateData(title: String?, type:String?, amount:Int?, id: Int?, time:Long?){
         val db = this.writableDatabase
-        var cv = ContentValues()
+        val cv = ContentValues()
         cv.put(COL_TITLE, title)
         cv.put(COL_TYPE, type)
         cv.put(COL_AMOUNT, amount)
@@ -114,11 +114,11 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
     }
 
     fun readDataFromMonth(year: String?, month: String?) : MutableList<Budget>{
-        var list : MutableList<Budget> = ArrayList()
+        val list : MutableList<Budget> = ArrayList()
 
         //Calculate range
-        var calendar = Calendar.getInstance()
-        var months = arrayOf("January", "February","March","April","May","June","July","August","September","October","November","December")
+        val calendar = Calendar.getInstance()
+        val months = arrayOf("January", "February","March","April","May","June","July","August","September","October","November","December")
 
         val formatter = SimpleDateFormat("yyyy/MM/dd")
         calendar.set(year!!.toInt(),months.indexOf(month),1)
@@ -138,7 +138,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
 
         if(result.moveToFirst()){
             do{
-                var budget = Budget()
+                val budget = Budget()
                 budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
                 budget.title = result.getString(result.getColumnIndex(COL_TITLE))
                 budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()

@@ -18,28 +18,26 @@ class AddNewItemActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_new_item)
-        var dateFormat = SimpleDateFormat("dd MMM yyyy")
+
+        val dateFormat = SimpleDateFormat("dd MMM yyyy")
         val categories = arrayOf("Income", "Expense")
-
-        var calendar = Calendar.getInstance()
-
+        val calendar = Calendar.getInstance()
         categorySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,categories)
 
-
-        var id = intent.getIntExtra("ID",-1)
+        val id = intent.getIntExtra("ID",-1)
 
         //Check if editing or adding new
         if(id > -1){
             setTitle("Editing item")
             deleteButton.visibility = View.VISIBLE;
 
-            var dbHandler = DBHandler(this)
-            var budget = dbHandler.readDataFromID(id)
+            val dbHandler = DBHandler(this)
+            val budget = dbHandler.readDataFromID(id)
             titleEdit.setText(budget.title)
             categorySpinner.setSelection(categories.indexOf(budget.type))
             amountEdit.setText(budget.amount.toString())
 
-            var stamp = Timestamp(budget.time!!)
+            val stamp = Timestamp(budget.time!!)
             calendar.time = Date(stamp.time)
 
         }
@@ -54,7 +52,7 @@ class AddNewItemActivity : AppCompatActivity() {
 
         dateEdit.setOnClickListener{
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, dpYear, dpMonth, dpDay ->
-                var stringMonth = months.get(dpMonth)
+                val stringMonth = months.get(dpMonth)
                 dateEdit.setText("" + dpDay + "/" +  stringMonth + "/" + dpYear)
                 year = dpYear
                 month = dpMonth
@@ -74,7 +72,7 @@ class AddNewItemActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
             }
             else{
-               var dbHandler = DBHandler(this)
+                val dbHandler = DBHandler(this)
 
                 val formatter = SimpleDateFormat("yyyy/MM/dd")
                 val dateString = "" + year + "/"+ (month+1)+ "/" + day
@@ -92,7 +90,7 @@ class AddNewItemActivity : AppCompatActivity() {
         }
 
         deleteButton.setOnClickListener{user->
-            var dbHandler = DBHandler(this)
+            val dbHandler = DBHandler(this)
             dbHandler.deleteData(id);
 
             val intent = Intent(this, MainActivity::class.java)

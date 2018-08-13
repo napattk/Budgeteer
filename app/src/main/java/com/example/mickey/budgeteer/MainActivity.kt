@@ -19,16 +19,16 @@ class MainActivity : AppCompatActivity() {
         this.setTitle("Transactions")
 
         //Prepare DB
-        var dbHandler = DBHandler(this)
-        var budgetItems :MutableList<Budget>
+        val dbHandler = DBHandler(this)
+        val budgetItems :MutableList<Budget>
 
         //Check intent
-        var year = intent!!.getStringExtra("year")
-        var month = intent!!.getStringExtra("month")
+        val year = intent!!.getStringExtra("year")
+        val month = intent!!.getStringExtra("month")
 
         if(year != null && month != null){
             budgetItems = dbHandler.readDataFromMonth(year,month)
-            this.setTitle("Transactions from " + month + " "+ year)
+            this.setTitle(month + " " + year + " Transactions")
         }else{
             budgetItems = dbHandler.readAllData()
             this.setTitle("All Transactions")
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             changeImage.setImageResource(R.drawable.increase)
         }
 
-        //Set-up items list
+        //Set-up budget items list
         budgetList.layoutManager = LinearLayoutManager(this) as RecyclerView.LayoutManager?;
         budgetList.adapter = BudgetViewAdapter(this, budgetItems);
 
