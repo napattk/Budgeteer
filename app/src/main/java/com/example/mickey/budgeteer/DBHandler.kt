@@ -11,7 +11,8 @@ import java.util.*
 val DB_NAME = "Budget";
 val TABLE_NAME = "Expenses";
 val COL_TITLE = "title";
-val COL_TYPE = "type";
+val COL_CATEGORY = "category";
+val COL_SUBCATEGORY = "SUBCATEGORY";
 val COL_AMOUNT = "amount";
 val COL_TIME = "time";
 val COL_ID = "id";
@@ -23,7 +24,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         val createTable = "CREATE TABLE " + TABLE_NAME + "("+
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+
                 COL_TITLE + " VARCHAR(256), " +
-                COL_TYPE + " VARCHAR(256), " +
+                COL_CATEGORY + " VARCHAR(256), " +
                 COL_TIME + " LONG, " +
                 COL_AMOUNT + " INTEGER)"
 
@@ -39,7 +40,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         val db = this.writableDatabase
         val cv = ContentValues()
         cv.put(COL_TITLE, title)
-        cv.put(COL_TYPE, type)
+        cv.put(COL_CATEGORY, type)
         cv.put(COL_AMOUNT, amount)
         cv.put(COL_TIME, time)
 
@@ -68,7 +69,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
                 budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
                 budget.title = result.getString(result.getColumnIndex(COL_TITLE))
                 budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()
-                budget.type = result.getString(result.getColumnIndex(COL_TYPE))
+                budget.category = result.getString(result.getColumnIndex(COL_CATEGORY))
                 budget.time = result.getString(result.getColumnIndex(COL_TIME)).toLong()
                 list.add(budget)
             }while(result.moveToNext())
@@ -89,7 +90,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
         budget.title = result.getString(result.getColumnIndex(COL_TITLE))
         budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()
-        budget.type = result.getString(result.getColumnIndex(COL_TYPE))
+        budget.category = result.getString(result.getColumnIndex(COL_CATEGORY))
         budget.time = result.getString(result.getColumnIndex(COL_TIME)).toLong()
 
         return budget;
@@ -99,7 +100,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         val db = this.writableDatabase
         val cv = ContentValues()
         cv.put(COL_TITLE, title)
-        cv.put(COL_TYPE, type)
+        cv.put(COL_CATEGORY, type)
         cv.put(COL_AMOUNT, amount)
         cv.put(COL_TIME, time)
 
@@ -142,7 +143,7 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
                 budget.id = result.getString(result.getColumnIndex(COL_ID)).toInt()
                 budget.title = result.getString(result.getColumnIndex(COL_TITLE))
                 budget.amount = result.getString(result.getColumnIndex(COL_AMOUNT)).toInt()
-                budget.type = result.getString(result.getColumnIndex(COL_TYPE))
+                budget.category = result.getString(result.getColumnIndex(COL_CATEGORY))
                 budget.time = result.getString(result.getColumnIndex(COL_TIME)).toLong()
                 list.add(budget)
             }while(result.moveToNext())

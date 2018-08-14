@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.budget_item_layout.view.*
+import kotlinx.android.synthetic.main.category_item_layout.view.*
 import java.text.SimpleDateFormat
 
 
@@ -44,11 +45,22 @@ class BudgetViewAdapter(context: Context, budgetItems: MutableList<Budget>): Rec
         holder.itemView.budgetItemTime.text = dateFormat.format(date)
 
         val id = budgetItems!![position].id
-        val type = budgetItems!![position].type
+        val category = budgetItems!![position].category
 
-        when (type) {
+        when (category) {
             "Income" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.income)
             "Expense" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.expense)
+
+            "Salary" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.salary)
+            "Extra Income" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.extra_income)
+            "Gift" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.gift)
+            "Refund" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.refund)
+            "Rent" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.rent)
+            "Food" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.food)
+            "Entertainment" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.entertainment)
+            "Transportation" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.transportation)
+            "Other Expense" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.expense)
+
         }
 
         holder.parentLayout.setOnClickListener() {user->

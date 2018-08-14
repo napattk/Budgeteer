@@ -28,7 +28,6 @@ class AddNewItemActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("dd MMM yyyy")
         val categories = arrayOf("Income", "Expense")
         val calendar = Calendar.getInstance()
-        //categorySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,categories)
 
         val id = intent.getIntExtra("ID",-1)
 
@@ -40,7 +39,7 @@ class AddNewItemActivity : AppCompatActivity() {
             val dbHandler = DBHandler(this)
             val budget = dbHandler.readDataFromID(id)
             titleEdit.setText(budget.title)
-            //categorySpinner.setSelection(categories.indexOf(budget.type))
+            categoryEdit.setText(budget.category)
             amountEdit.setText(budget.amount.toString())
 
             val stamp = Timestamp(budget.time!!)
@@ -99,9 +98,9 @@ class AddNewItemActivity : AppCompatActivity() {
                 val msDate = date.time;
 
                 if (title.equals("Editing item")){
-                    dbHandler.updateData(titleEdit.text.toString(), categoryEdit.toString(), amountEdit.text.toString().toInt(), id, msDate)
+                    dbHandler.updateData(titleEdit.text.toString(), categoryEdit.text.toString(), amountEdit.text.toString().toInt(), id, msDate)
                 }else {
-                    dbHandler.insertData(titleEdit.text.toString(), categoryEdit.toString(), amountEdit.text.toString().toInt(), msDate)
+                    dbHandler.insertData(titleEdit.text.toString(), categoryEdit.text.toString(), amountEdit.text.toString().toInt(), msDate)
                 }
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -115,7 +114,7 @@ class AddNewItemActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-        
+
 
     }
 

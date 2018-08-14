@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         var totalChange = 0;
 
         budgetItems.iterator().forEach {
-            when(it.type){
+            when(it.category){
                 "Expense" -> totalChange = totalChange - it.amount!!;
                 "Income" -> totalChange = totalChange + it.amount!!;
             }
