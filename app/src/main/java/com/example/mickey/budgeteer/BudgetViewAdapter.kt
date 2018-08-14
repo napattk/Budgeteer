@@ -2,6 +2,7 @@ package com.example.mickey.budgeteer
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -39,18 +40,20 @@ class BudgetViewAdapter(context: Context, budgetItems: MutableList<Budget>): Rec
 
     override fun onBindViewHolder(holder: CustomBudgetViewHolder, position: Int) {
         val date = budgetItems!![position].time
-
-        holder.itemView.budgetItemTitle?.text = budgetItems!![position].title
-        holder.itemView.budgetItemAmount.text = budgetItems!![position].amount.toString()
-        holder.itemView.budgetItemTime.text = dateFormat.format(date)
-
         val id = budgetItems!![position].id
         val category = budgetItems!![position].category
 
-        when (category) {
-            "Income" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.income)
-            "Expense" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.expense)
+        holder.itemView.budgetItemTitle?.text = budgetItems!![position].title
+        holder.itemView.budgetItemTime.text = dateFormat.format(date)
+        holder.itemView.budgetItemAmount.text = budgetItems!![position].amount.toString()
 
+        when(category){
+            in CategoryViewAdapter.incomeItems -> holder.itemView.budgetItemAmount.setTextColor(Color.parseColor("#587C12"))
+            in CategoryViewAdapter.expenseItems -> holder.itemView.budgetItemAmount.setTextColor(Color.parseColor("#8C2A2A"))
+        }
+
+
+        when (category) {
             "Salary" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.salary)
             "Extra Income" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.extra_income)
             "Gift" -> holder.itemView.budgetItemImage.setImageResource(R.drawable.gift)
