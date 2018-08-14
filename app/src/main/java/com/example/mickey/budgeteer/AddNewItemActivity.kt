@@ -115,20 +115,7 @@ class AddNewItemActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
-        tempButton.setOnClickListener{user->
-
-            val ft = supportFragmentManager.beginTransaction()
-            val prev = supportFragmentManager.findFragmentByTag("dialog")
-            if (prev != null) {
-                ft.remove(prev)
-            }
-            ft.addToBackStack(null)
-
-            val dialogFragment = CategoryPickerDialog(tempButton)
-            dialogFragment.show(ft, "dialog")
-
-        }
+        
 
     }
 
