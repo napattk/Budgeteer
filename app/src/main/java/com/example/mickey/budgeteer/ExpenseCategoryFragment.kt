@@ -1,6 +1,8 @@
 package com.example.mickey.budgeteer
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -9,10 +11,18 @@ import android.view.LayoutInflater
 import android.view.View
 
 
-class ExpenseCategoryFragment() : Fragment() {
+@SuppressLint("ValidFragment")
+class ExpenseCategoryFragment(parentView: View?,parentDialog: DialogFragment?) : Fragment() {
+
+    var parentView: View? = null
+    var parentDialog: DialogFragment? = null
+    init {
+        this.parentView = parentView
+        this.parentDialog = parentDialog
+    }
 
     fun createInstance(): ExpenseCategoryFragment {
-        return ExpenseCategoryFragment()
+        return ExpenseCategoryFragment(parentView,parentDialog)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -23,7 +33,7 @@ class ExpenseCategoryFragment() : Fragment() {
         var recyclerView = view.findViewById<RecyclerView>(R.id.categoryRecyclerView)
 
         recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = CategoryViewAdapter(context, "Expense")
+        recyclerView.adapter = CategoryViewAdapter(context, "Expense",parentView!!,parentDialog!!)
 
         return view
 

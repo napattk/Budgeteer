@@ -8,10 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.budget_item_layout.view.*
 import java.text.SimpleDateFormat
-import java.util.*
 
 
-class BudgetViewAdapter(context: Context, budgetItems: MutableList<Budget>): RecyclerView.Adapter<CustomViewHolder>(){
+class BudgetViewAdapter(context: Context, budgetItems: MutableList<Budget>): RecyclerView.Adapter<CustomBudgetViewHolder>(){
 
     var budgetItems: MutableList<Budget>? = null;
     var dateFormat = SimpleDateFormat("dd MMM yyyy")
@@ -31,13 +30,13 @@ class BudgetViewAdapter(context: Context, budgetItems: MutableList<Budget>): Rec
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomBudgetViewHolder {
         val layoutInflater = LayoutInflater.from(parent?.context)
         val cellForRow = layoutInflater.inflate(R.layout.budget_item_layout, parent, false)
-        return CustomViewHolder(cellForRow)
+        return CustomBudgetViewHolder(cellForRow)
     }
 
-    override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CustomBudgetViewHolder, position: Int) {
         val date = budgetItems!![position].time
 
         holder.itemView.budgetItemTitle?.text = budgetItems!![position].title
@@ -61,9 +60,7 @@ class BudgetViewAdapter(context: Context, budgetItems: MutableList<Budget>): Rec
     }
 }
 
-class CustomViewHolder(v: View): RecyclerView.ViewHolder(v){
+class CustomBudgetViewHolder(v: View): RecyclerView.ViewHolder(v){
     var parentLayout = v.budgetItem;
-
-
 
 }

@@ -9,6 +9,7 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_add_new_item.*
 import java.util.*
 import android.app.DatePickerDialog
+import kotlinx.android.synthetic.main.category_item_layout.*
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 
@@ -27,7 +28,7 @@ class AddNewItemActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("dd MMM yyyy")
         val categories = arrayOf("Income", "Expense")
         val calendar = Calendar.getInstance()
-        categorySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,categories)
+        //categorySpinner.adapter = ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item,categories)
 
         val id = intent.getIntExtra("ID",-1)
 
@@ -39,11 +40,24 @@ class AddNewItemActivity : AppCompatActivity() {
             val dbHandler = DBHandler(this)
             val budget = dbHandler.readDataFromID(id)
             titleEdit.setText(budget.title)
-            categorySpinner.setSelection(categories.indexOf(budget.type))
+            //categorySpinner.setSelection(categories.indexOf(budget.type))
             amountEdit.setText(budget.amount.toString())
 
             val stamp = Timestamp(budget.time!!)
             calendar.time = Date(stamp.time)
+
+        }
+
+        categoryEdit.setOnClickListener {
+            val ft = supportFragmentManager.beginTransaction()
+            val prev = supportFragmentManager.findFragmentByTag("dialog")
+            if (prev != null) {
+                ft.remove(prev)
+            }
+            ft.addToBackStack(null)
+
+            val dialogFragment = CategoryPickerDialog(categoryEdit)
+            dialogFragment.show(ft, "dialog")
 
         }
 
@@ -73,7 +87,7 @@ class AddNewItemActivity : AppCompatActivity() {
             else if(amountEdit.text.isBlank()){
                 Toast.makeText(this, "Please enter an amount.", Toast.LENGTH_SHORT).show()
             }
-            else if(categorySpinner.selectedItem==null){
+            else if(categoryEdit.text.isBlank()){
                 Toast.makeText(this, "Please select a category.", Toast.LENGTH_SHORT).show()
             }
             else{
@@ -85,9 +99,9 @@ class AddNewItemActivity : AppCompatActivity() {
                 val msDate = date.time;
 
                 if (title.equals("Editing item")){
-                    dbHandler.updateData(titleEdit.text.toString(), categorySpinner.selectedItem.toString(), amountEdit.text.toString().toInt(), id, msDate)
+                    dbHandler.updateData(titleEdit.text.toString(), categoryEdit.toString(), amountEdit.text.toString().toInt(), id, msDate)
                 }else {
-                    dbHandler.insertData(titleEdit.text.toString(), categorySpinner.selectedItem.toString(), amountEdit.text.toString().toInt(), msDate)
+                    dbHandler.insertData(titleEdit.text.toString(), categoryEdit.toString(), amountEdit.text.toString().toInt(), msDate)
                 }
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -111,7 +125,7 @@ class AddNewItemActivity : AppCompatActivity() {
             }
             ft.addToBackStack(null)
 
-            val dialogFragment = CategoryPickerDialog()
+            val dialogFragment = CategoryPickerDialog(tempButton)
             dialogFragment.show(ft, "dialog")
 
         }
