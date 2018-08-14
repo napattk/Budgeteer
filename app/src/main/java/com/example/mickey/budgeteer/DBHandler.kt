@@ -12,7 +12,6 @@ val DB_NAME = "Budget";
 val TABLE_NAME = "Expenses";
 val COL_TITLE = "title";
 val COL_CATEGORY = "category";
-val COL_SUBCATEGORY = "SUBCATEGORY";
 val COL_AMOUNT = "amount";
 val COL_TIME = "time";
 val COL_ID = "id";
@@ -27,8 +26,6 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
                 COL_CATEGORY + " VARCHAR(256), " +
                 COL_TIME + " LONG, " +
                 COL_AMOUNT + " INTEGER)"
-
-
         db?.execSQL(createTable)
     }
 

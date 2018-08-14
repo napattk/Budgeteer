@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,8 +39,8 @@ class MainActivity : AppCompatActivity() {
 
         budgetItems.iterator().forEach {
             when(it.category){
-                "Expense" -> totalChange = totalChange - it.amount!!;
-                "Income" -> totalChange = totalChange + it.amount!!;
+                in CategoryViewAdapter.incomeItems -> totalChange = totalChange + it.amount!!;
+                in CategoryViewAdapter.expenseItems -> totalChange = totalChange - it.amount!!;
             }
         }
 

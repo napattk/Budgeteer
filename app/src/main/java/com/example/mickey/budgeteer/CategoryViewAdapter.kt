@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import android.widget.EditText
 import kotlinx.android.synthetic.main.category_item_layout.view.*
 
+
 class CategoryViewAdapter(context: Context, fragName: String,parentView: View, parentDialog: DialogFragment?): RecyclerView.Adapter<CustomCategoryViewHolder>(){
+    companion object {
+        var incomeItems = arrayListOf("Salary", "Refund", "Gift", "Other Income")
+        var expenseItems = arrayListOf("Rent", "Food", "Entertainment","Transportation","Other Expense")
+    }
 
     var fragName: String? = null
-    var incomeItems = arrayListOf("Salary", "Extra Income", "Gift", "Refund")
-    var expenseItems = arrayListOf("Rent", "Food", "Entertainment","Transportation","Other Expense")
     var context: Context? = null
     var parentView: View? = null
     var parentDialog: DialogFragment? = null
@@ -57,9 +60,9 @@ class CategoryViewAdapter(context: Context, fragName: String,parentView: View, p
                 categoryText = incomeItems[position]
                 when(position){
                     0 -> holder.itemView.categoryImageView.setImageResource(R.drawable.salary)
-                    1 -> holder.itemView.categoryImageView.setImageResource(R.drawable.extra_income)
+                    1 -> holder.itemView.categoryImageView.setImageResource(R.drawable.refund)
                     2 -> holder.itemView.categoryImageView.setImageResource(R.drawable.gift)
-                    3 -> holder.itemView.categoryImageView.setImageResource(R.drawable.refund)
+                    3 -> holder.itemView.categoryImageView.setImageResource(R.drawable.extra_income)
 
                 }
             }
@@ -73,9 +76,12 @@ class CategoryViewAdapter(context: Context, fragName: String,parentView: View, p
 
     }
 
+
+
 }
 
 class CustomCategoryViewHolder(v: View): RecyclerView.ViewHolder(v){
     var parentLayout = v.categoryItem;
 
 }
+
