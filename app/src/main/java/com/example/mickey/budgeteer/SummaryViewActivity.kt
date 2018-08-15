@@ -2,8 +2,10 @@ package com.example.mickey.budgeteer
 
 import android.graphics.Color
 import android.graphics.Paint
+import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -58,6 +60,13 @@ class SummaryViewActivity : AppCompatActivity() {
                 in CategoryViewAdapter.incomeItems -> pieIncomeArrayList.add(PieEntry("$value".toFloat(),"$key"))
                 in CategoryViewAdapter.expenseItems -> pieExpenseArrayList.add(PieEntry("$value".toFloat(),"$key"))
             }
+        }
+
+        if(pieIncomeArrayList.size == 0){
+            noIncomeText.visibility = View.VISIBLE
+        }
+        if(pieExpenseArrayList.size == 0){
+            noExpenseText.visibility = View.VISIBLE
         }
 
         var pieExpenseDataSet = PieDataSet(pieExpenseArrayList, "")

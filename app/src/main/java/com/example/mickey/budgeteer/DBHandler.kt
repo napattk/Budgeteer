@@ -118,11 +118,11 @@ class DBHandler(var context: Context) : SQLiteOpenHelper(context,DB_NAME,null,1)
         val calendar = Calendar.getInstance()
         val months = arrayOf("January", "February","March","April","May","June","July","August","September","October","November","December")
 
-        val formatter = SimpleDateFormat("yyyy/MM/dd")
+        val formatter = SimpleDateFormat("yyyy MM dd")
         calendar.set(year!!.toInt(),months.indexOf(month),1)
         val maxDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-        val startDateString = "" + year + "/"+ (months.indexOf(month)+1)+ "/" + 1
-        val endDateString = "" + year + "/"+ (months.indexOf(month)+1)+ "/" + maxDays
+        val startDateString = "" + year + " "+ (months.indexOf(month)+1)+ " " + 1
+        val endDateString = "" + year + " "+ (months.indexOf(month)+1)+ " " + maxDays
         val startDate = formatter.parse(startDateString)
         val endDate = formatter.parse(endDateString)
         val msDateStart = startDate.time;

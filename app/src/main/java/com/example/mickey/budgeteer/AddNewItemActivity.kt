@@ -71,7 +71,7 @@ class AddNewItemActivity : AppCompatActivity() {
         dateEdit.setOnClickListener{
             val dpd = DatePickerDialog(this, DatePickerDialog.OnDateSetListener { view, dpYear, dpMonth, dpDay ->
                 val stringMonth = months.get(dpMonth)
-                dateEdit.setText("" + dpDay + "/" +  stringMonth + "/" + dpYear)
+                dateEdit.setText("" + dpDay + " " +  stringMonth + " " + dpYear)
                 year = dpYear
                 month = dpMonth
                 day = dpDay
@@ -92,8 +92,8 @@ class AddNewItemActivity : AppCompatActivity() {
             else{
                 val dbHandler = DBHandler(this)
 
-                val formatter = SimpleDateFormat("yyyy/MM/dd")
-                val dateString = "" + year + "/"+ (month+1)+ "/" + day
+                val formatter = SimpleDateFormat("yyyy MM dd")
+                val dateString = "" + year + " "+ (month+1)+ " " + day
                 val date = formatter.parse(dateString)
                 val msDate = date.time;
 
