@@ -5,6 +5,13 @@
         android:id="@+id/monthSelect"
         android:icon="@drawable/calendar"
         android:title="Select Month"
-        app:showAsAction="always"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/summarySelect"
+        android:icon="@drawable/summary"
+        android:title="View Summary"
+        app:showAsAction="ifRoom"
         />
 </menu>

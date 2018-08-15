@@ -8,9 +8,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
+
+    var year: String? = null;
+    var month: String? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +25,8 @@ class MainActivity : AppCompatActivity() {
         val budgetItems :MutableList<Budget>
 
         //Check intent
-        val year = intent!!.getStringExtra("year")
-        val month = intent!!.getStringExtra("month")
+        year = intent!!.getStringExtra("year")
+        month = intent!!.getStringExtra("month")
 
         if(year != null && month != null){
             budgetItems = dbHandler.readDataFromMonth(year,month)
@@ -80,7 +82,15 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 return true
             }
+            R.id.summarySelect -> {
+                val intent = Intent(this, SummaryViewActivity::class.java)
 
+                intent.putExtra("year",year)
+                intent.putExtra("month",month)
+
+                startActivity(intent)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }

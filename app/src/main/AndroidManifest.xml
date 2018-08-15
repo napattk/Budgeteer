@@ -31,7 +31,8 @@
         <activity
             android:name=".categoryPickerActivity"
             android:label="@string/title_activity_category_picker" />
-        <activity android:name=".CategoryPickerDialog"></activity>
+        <activity android:name=".CategoryPickerDialog" />
+        <activity android:name=".SummaryViewActivity"></activity>
     </application>
 
 </manifest>
