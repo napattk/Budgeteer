@@ -10,15 +10,19 @@ import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.formatter.PercentFormatter
 import kotlinx.android.synthetic.main.activity_summary_view.*
 
 
 class SummaryViewActivity : AppCompatActivity() {
 
+    var colors :MutableList<Int> = arrayListOf(
+            Color.parseColor("#509993"),Color.parseColor("#153754"),Color.parseColor("#B0A596")
+            ,Color.parseColor("#911E07"),Color.parseColor("#D4C8A7"),Color.parseColor("#E39C13"))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_summary_view)
-
         title = "Summary"
 
         //Get info from DB
@@ -40,10 +44,6 @@ class SummaryViewActivity : AppCompatActivity() {
         val categoryTotalHash = HashMap<String,Int>()
         val pieExpenseArrayList = ArrayList<PieEntry>();
         val pieIncomeArrayList = ArrayList<PieEntry>();
-
-        var colors :MutableList<Int> = arrayListOf(
-                Color.parseColor("#509993"),Color.parseColor("#153754"),Color.parseColor("#B0A596")
-                ,Color.parseColor("#911E07"),Color.parseColor("#D4C8A7"),Color.parseColor("#E39C13"))
 
         budgetItems.iterator().forEach {
             total += it.amount!!
@@ -69,46 +69,35 @@ class SummaryViewActivity : AppCompatActivity() {
             noExpenseText.visibility = View.VISIBLE
         }
 
-        var pieExpenseDataSet = PieDataSet(pieExpenseArrayList, "")
-        var pieIncomeDataSet = PieDataSet(pieIncomeArrayList, "")
-
-        pieExpenseDataSet.colors = colors
-        pieIncomeDataSet.colors = colors
-
-        expensePie.data = PieData(pieExpenseDataSet)
-        incomePie.data = PieData(pieIncomeDataSet)
-
-        expensePie.description.isEnabled = false
-        incomePie.description.isEnabled = false
-
-        expensePie.animateY(1500)
-        incomePie.animateY(1500)
-
-        expensePie.invalidate()
-        incomePie.invalidate()
-
-        expensePie.setEntryLabelTextSize(20f)
-        incomePie.setEntryLabelTextSize(20f)
-
-        expensePie.setEntryLabelColor(Color.WHITE)
-        incomePie.setEntryLabelColor(Color.WHITE)
-
-        expensePie.legend.textSize = 15f
-        incomePie.legend.textSize = 15f
-
-        expensePie.legend.textColor = Color.WHITE
-        incomePie.legend.textColor = Color.WHITE
-
-        expensePie.setBackgroundColor(Color.DKGRAY)
-        incomePie.setBackgroundColor(Color.DKGRAY)
-
-        expensePie.setHoleColor(Color.DKGRAY)
-        incomePie.setHoleColor(Color.DKGRAY)
-
+        customizePie(expensePie,pieExpenseArrayList)
+        customizePie(incomePie,pieIncomeArrayList)
 
     }
 
+    private fun customizePie(pie: PieChart?, pieDataArray: ArrayList<PieEntry>) {
 
+        var pieDataSet = PieDataSet(pieDataArray, "")
+
+        pieDataSet!!.xValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+        pieDataSet.valueFormatter = PercentFormatter()
+        pieDataSet.valueTextSize = 15f
+        pieDataSet.valueTextColor = Color.WHITE
+        pieDataSet.colors = colors;
+
+
+        pie!!.data = PieData(pieDataSet)
+        pie.setUsePercentValues(true)
+        pie.description.isEnabled = false
+        pie.setHoleColor(Color.parseColor("#444444"))
+        pie.animateY(1500)
+        pie.setEntryLabelTextSize(20f)
+        pie.setEntryLabelColor(Color.WHITE)
+        pie.legend.textSize = 15f
+        pie.legend.textColor = Color.WHITE
+        pie.setBackgroundColor(Color.DKGRAY)
+
+        pie.invalidate()
+    }
 
 
 }
