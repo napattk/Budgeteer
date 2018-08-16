@@ -82,8 +82,7 @@ class SummaryViewActivity : AppCompatActivity() {
         pieDataSet.valueFormatter = PercentFormatter()
         pieDataSet.valueTextSize = 15f
         pieDataSet.valueTextColor = Color.WHITE
-        pieDataSet.colors = colors;
-
+        pieDataSet.colors = colors
 
         pie!!.data = PieData(pieDataSet)
         pie.setUsePercentValues(true)
@@ -95,6 +94,7 @@ class SummaryViewActivity : AppCompatActivity() {
         pie.legend.textSize = 15f
         pie.legend.textColor = Color.WHITE
         pie.setBackgroundColor(Color.DKGRAY)
+        pie.legend.isWordWrapEnabled = true
 
         pie.invalidate()
     }
